@@ -6,6 +6,7 @@ using UnityEngine;
 public class AudioWindow : EditorWindow
 {
     static AudioWindow instance;
+    static GameObject player = GameObject.Find("Player");
 
     [MenuItem("Window/Volume Window")]
 
@@ -26,12 +27,18 @@ public class AudioWindow : EditorWindow
         SoundPrefs.HealingVolume = EditorGUILayout.IntSlider("Healing volume:", SoundPrefs.HealingVolume, 1, 10);
 
         if(GUILayout.Button("Play Shooting Effect"))
-        {}
+        {
+            player.GetComponent<AudioSource>().PlayOneShot((AudioClip)EditorGUIUtility.Load("Assets/SoundFX/ShootingSound/laser_01.wav"), SoundPrefs.ShootingVolume / 10f);
+        }
 
         if(GUILayout.Button("Play Explosion Effect"))
-        {}
+        {
+            player.GetComponent<AudioSource>().PlayOneShot((AudioClip)EditorGUIUtility.Load("Assets/SoundFX/Free Pack/Explosion 1.wav"), SoundPrefs.ExplosionVolume / 10f);
+        }
 
         if(GUILayout.Button("Play Healing Effect"))
-        {}
+        {
+            player.GetComponent<AudioSource>().PlayOneShot((AudioClip)EditorGUIUtility.Load("Assets/SoundFX/ShootingSound/heal.wav"), SoundPrefs.HealingVolume / 10f);
+        }
     }
 }
