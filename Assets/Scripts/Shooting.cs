@@ -13,6 +13,7 @@ public class Shooting : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
+            Debug.Log("AudioClip.ToString: " + shootingSound.ToString());
             if(!SoundPrefs.MuteShooting)
             {
                 audioSource.PlayOneShot(shootingSound, SoundPrefs.ShootingVolume / 10f);

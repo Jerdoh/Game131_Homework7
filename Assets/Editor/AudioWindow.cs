@@ -7,6 +7,7 @@ public class AudioWindow : EditorWindow
 {
     static AudioWindow instance;
     static GameObject player = GameObject.Find("Player");
+    static Shooting shootingObject;
 
     [MenuItem("Window/Volume Window")]
 
@@ -17,6 +18,8 @@ public class AudioWindow : EditorWindow
     }
     private void OnGUI()
     {
+        shootingObject = player.GetComponent<Shooting>();
+
         SoundPrefs.MuteBackgroundMusic = EditorGUILayout.Toggle("Mute background music:", SoundPrefs.MuteBackgroundMusic);
         SoundPrefs.MuteShooting = EditorGUILayout.Toggle("Mute shooting effect:", SoundPrefs.MuteShooting);
         SoundPrefs.MuteExplosion = EditorGUILayout.Toggle("Mute explosion effect:", SoundPrefs.MuteExplosion);
@@ -27,18 +30,18 @@ public class AudioWindow : EditorWindow
         SoundPrefs.HealingVolume = EditorGUILayout.IntSlider("Healing volume:", SoundPrefs.HealingVolume, 1, 10);
 
         if(GUILayout.Button("Play Shooting Effect"))
-        {
-            player.GetComponent<AudioSource>().PlayOneShot((AudioClip)EditorGUIUtility.Load("Assets/SoundFX/ShootingSound/laser_01.wav"), SoundPrefs.ShootingVolume / 10f);
+        {            
+            player.GetComponent<AudioSource>().PlayOneShot(shootingObject.shootingSound, SoundPrefs.ShootingVolume / 10f);
         }
 
         if(GUILayout.Button("Play Explosion Effect"))
         {
-            player.GetComponent<AudioSource>().PlayOneShot((AudioClip)EditorGUIUtility.Load("Assets/SoundFX/Free Pack/Explosion 1.wav"), SoundPrefs.ExplosionVolume / 10f);
+            player.GetComponent<AudioSource>().PlayOneShot(shootingObject.hitBarrelSound, SoundPrefs.ExplosionVolume / 10f);
         }
 
         if(GUILayout.Button("Play Healing Effect"))
         {
-            player.GetComponent<AudioSource>().PlayOneShot((AudioClip)EditorGUIUtility.Load("Assets/SoundFX/ShootingSound/heal.wav"), SoundPrefs.HealingVolume / 10f);
+            player.GetComponent<AudioSource>().PlayOneShot(shootingObject.healingSound, SoundPrefs.HealingVolume / 10f);
         }
     }
 }
