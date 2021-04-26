@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] public AudioClip hitBarrelSound;
+    [SerializeField] public AudioClip shootingSound;
+    [SerializeField] public AudioClip healingSound;
+
     void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
+            if(!SoundPrefs.MuteShooting)
+            {
+                audioSource.PlayOneShot(shootingSound, SoundPrefs.ShootingVolume / 10f);
+            }
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -30,6 +39,10 @@ public class Shooting : MonoBehaviour
                     {
                         IExplode temp = item as IExplode;
                         temp.Explode();
+                        if(!SoundPrefs.MuteExplosion)
+                        {
+                            audioSource.PlayOneShot(hitBarrelSound, SoundPrefs.ExplosionVolume / 10f);
+                        }
                         return;
                     }
                 }
@@ -54,6 +67,10 @@ public class Shooting : MonoBehaviour
                     {
                         IHeal temp = item as IHeal;
                         temp.Heal();
+                        if(!SoundPrefs.MuteHealing)
+                        {
+                            audioSource.PlayOneShot(healingSound);
+                        }
                         return;
                     }
                 }
