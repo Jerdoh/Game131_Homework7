@@ -6,16 +6,6 @@ using UnityEngine;
     using UnityEditor;
 #endif
 
-/*
-private bool MuteBackgroundMusic;
-    private bool MuteShooting;
-    private bool MuteExplosion;
-    private bool MuteHealing;
-    private float BackgroundMusicVolume;
-    private float ShootingVolume;
-    private float ExplosionVolume;
-    private float HealingVolume;
-*/
 public class SoundPrefs
 {
     public static bool MuteBackgroundMusic
